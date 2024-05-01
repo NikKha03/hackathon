@@ -13,13 +13,16 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_id;
+    private Long userId;
 
     private String name;
     private String surname;
 
     @Column(unique = true)
     private String email;
+
+    @Column(unique = true)
+    private String username;
 
     @Column(unique = true)
     private String tg;
@@ -29,6 +32,7 @@ public class User {
     private String password;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name="user_role")
     private List<Role> roles;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user_id")
