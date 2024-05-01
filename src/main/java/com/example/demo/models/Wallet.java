@@ -21,15 +21,13 @@ public class Wallet {
     @Column(nullable = false)
     private int walletQuantity;
 
-    @JoinColumn(name = "user_id", unique = true, nullable = false)
-    private Long user_id;
+    @OneToMany(mappedBy = "walletQuantity")
+    private List<Customer> walletQuantity_list;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "walletQuantity")
-    private List<Customer> walletQuantity_list = new ArrayList<>();
+    @OneToMany(mappedBy = "wallet_id")
+    private List<Customer> wallet_id_list;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "wallet_id")
-    private List<Customer> wallet_id_list = new ArrayList<>();
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "wallet_id")
-    private List<Customer> wallet_ID_list = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user_id;
 }

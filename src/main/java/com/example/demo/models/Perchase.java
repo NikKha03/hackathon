@@ -12,12 +12,19 @@ public class Perchase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long perchase_id;
 
-    @JoinColumn(name = "customer_id", unique = true, nullable = false)
-    private Long customer_id;
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer_id;
 
-    @JoinColumn(name = "product_id", nullable = false)
-    private int cost;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Store product_id;
 
-    @JoinColumn(name = "wallet_id", nullable = false)
-    private Long wallet_id;
+    @ManyToOne
+    @JoinColumn(name = "wallet_id")
+    private Wallet wallet_id;
+
+    @ManyToOne
+    @JoinColumn(name = "product_cost")
+    private Store product_cost;
 }

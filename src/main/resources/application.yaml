@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: // TODO
+    url: jdbc:postgresql://localhost:5432/hackathon_db
     username: postgres
-    password: postgres
+    password: 1556
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
