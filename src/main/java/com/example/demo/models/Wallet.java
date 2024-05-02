@@ -1,9 +1,9 @@
 package com.example.demo.models;
 
+import com.example.demo.models.ForUser.User;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
