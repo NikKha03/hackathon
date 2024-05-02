@@ -9,10 +9,8 @@ import lombok.Data;
 public class Purchase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private Double price;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customerId;
+    private Long customerId;
 }
