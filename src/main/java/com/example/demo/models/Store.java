@@ -23,7 +23,10 @@ public class Store {
     @Column(nullable = false)
     private int cost;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "product_id")
-    private List<Perchase> cost_list = new ArrayList<>();
+    @OneToMany(mappedBy = "product_cost")
+    private List<Perchase> product_cost_list;
+
+    @OneToMany(mappedBy = "product_id")
+    private List<Perchase> product_list;
 
 }
