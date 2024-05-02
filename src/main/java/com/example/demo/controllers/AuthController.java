@@ -2,7 +2,8 @@ package com.example.demo.controllers;
 
 import com.example.demo.DTO.SigninRequest;
 import com.example.demo.DTO.SignupRequest;
-import com.example.demo.models.User;
+import com.example.demo.models.ForUser.User;
+import com.example.demo.repository.RoleRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.token.JwtCore;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,7 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
     private JwtCore jwtCore;
     private UserRepository userRepository;
+    private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/signup")
@@ -44,6 +46,7 @@ public class AuthController {
         user.setUsername(signupRequest.getUsername());
         user.setEmail(signupRequest.getEmail());
         user.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
+        user.setRoles(roleRepository.getRoleByRoleName("USER"));
         userRepository.save(user);
 
         JSONObject jsonObject = new JSONObject();
@@ -68,9 +71,6 @@ public class AuthController {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("username", user.getUsername());
         jsonObject.put("accessToken", jwt);
-        jsonObject.put("id", user.getUserId());
-        jsonObject.put("email", user.getEmail());
-        jsonObject.put("role", user.getRoles());
 
         return ResponseEntity.ok(jsonObject.toString());
     }

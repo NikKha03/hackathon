@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.config.MyUserDetails;
-import com.example.demo.models.User;
+import com.example.demo.models.ForUser.User;
 import com.example.demo.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
