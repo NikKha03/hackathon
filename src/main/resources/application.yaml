@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5434/hackathon_db
+    url: jdbc:postgresql://localhost:5432/hackathon_db
     username: postgres
-    password: postgres
+    password: 1556
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -12,6 +12,3 @@ spring:
     show-sql: true
   application:
     name: hackathon
-testing:
-  app:
-    secret: SBJHPYEQUWGRVXCNVJELQTHUDVCMMSGUYQEBWRELVEGWQEARWLAKHWUYGYHREKWQPJJYAPNHYHNGQAMG
