@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import com.example.demo.models.ForUser.User;
 import jakarta.persistence.*;
 import lombok.Data;
 

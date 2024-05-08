@@ -13,10 +13,6 @@ public class UserInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userInfoId;
 
-    @OneToOne()
-    @JoinColumn(name = "user_id")
-    private User userId;
-
     private String name;
     private String surname;
 
@@ -24,4 +20,8 @@ public class UserInfo {
     private String tg;
 
     private LocalDate dateOfBirth;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User userId;
 }

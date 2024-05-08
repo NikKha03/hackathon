@@ -1,11 +1,13 @@
 package com.example.demo.config;
 
+import com.example.demo.models.ForUser.Role;
 import com.example.demo.models.ForUser.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -21,8 +23,8 @@ public class MyUserDetails implements UserDetails  {
     public static MyUserDetails build(User user) {
         return new MyUserDetails(
                 user.getUserId(),
-                user.getUsername(),
                 user.getEmail(),
+                user.getUsername(),
                 user.getPassword());
     }
 

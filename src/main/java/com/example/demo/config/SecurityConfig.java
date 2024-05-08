@@ -60,9 +60,9 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-                        .requestMatchers("src/main/resources/static/client/index.html", "notes/info").permitAll() // доступ всем
-                        .requestMatchers("notes/signup", "notes/signin").anonymous() // доступ неаутентифицированным пользователям
-                        .requestMatchers("notes/user/**").fullyAuthenticated()
+                        .requestMatchers("hackathon/signup", "hackathon/signin").anonymous() // доступ неаутентифицированным пользователям
+                        .requestMatchers("hackathon/user/**").fullyAuthenticated()
+                        .requestMatchers("hackathon/admin/**").fullyAuthenticated()
                         .anyRequest().permitAll() // всем запрещает доступ
                 )
                 .addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);

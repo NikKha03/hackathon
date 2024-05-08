@@ -16,7 +16,7 @@ public class Wallet {
     private Long wallet_id;
 
     @Column
-    private String walletName;
+    private String walletName = "CloudCoin";
 
     @Column(nullable = false)
     private int walletQuantity;
@@ -27,7 +27,7 @@ public class Wallet {
     @OneToMany(mappedBy = "wallet_id")
     private List<Customer> wallet_id_list;
 
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
-    private User user_id;
+    private User userId;
 }

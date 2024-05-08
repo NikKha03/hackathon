@@ -16,6 +16,6 @@ public class Role {
     @Column(nullable = false, unique = true)
     private String roleName;
 
-    @ManyToMany(mappedBy = "roles")
-    private List<User> users;
+//    @ManyToMany(mappedBy = "roles")
+//    private List<User> users;
 }

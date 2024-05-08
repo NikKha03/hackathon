@@ -3,8 +3,10 @@ package com.example.demo.controllers;
 import com.example.demo.DTO.SigninRequest;
 import com.example.demo.DTO.SignupRequest;
 import com.example.demo.models.ForUser.User;
+import com.example.demo.models.Wallet;
 import com.example.demo.repository.RoleRepository;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.repository.WalletRepository;
 import com.example.demo.token.JwtCore;
 import lombok.AllArgsConstructor;
 import org.json.JSONObject;
@@ -30,6 +32,7 @@ public class AuthController {
     private JwtCore jwtCore;
     private UserRepository userRepository;
     private RoleRepository roleRepository;
+    private WalletRepository walletRepository;
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/signup")
@@ -48,6 +51,11 @@ public class AuthController {
         user.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
         user.setRoles(roleRepository.getRoleByRoleName("USER"));
         userRepository.save(user);
+
+        Wallet wallet = new Wallet();
+        wallet.setWalletQuantity(100);
+        wallet.setUserId(user);
+        walletRepository.save(wallet);
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("message", "Регистрация прошла успешно!");

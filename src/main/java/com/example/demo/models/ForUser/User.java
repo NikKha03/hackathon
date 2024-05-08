@@ -2,6 +2,7 @@ package com.example.demo.models.ForUser;
 
 import com.example.demo.models.Wallet;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
+    @NotNull
     @Column(unique = true)
     private String email;
 
@@ -30,17 +32,13 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "roleId")})
     private List<Role> roles = new ArrayList<>();
 
-    @OneToOne(mappedBy = "userId")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "userId")
     private UserInfo userInfo;
 
-    @OneToMany(mappedBy = "user_id")
-    private List<Wallet> WalletList;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "userId")
+    private Wallet wallet;
 
     public void setRoles(Role roles) {
         this.roles.add(roles);
-    }
-
-    public String getRoles() {
-        return this.roles.toString();
     }
 }
