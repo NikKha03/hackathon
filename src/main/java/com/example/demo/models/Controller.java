@@ -21,7 +21,7 @@ public class Controller {
     @Transactional
     public void makeOrder(@RequestBody Purchase purchase) {
         dao.createPurchase(purchase);
-        method();
+//        method();
         dao.writeOffMoney(purchase);
     }
 
@@ -30,7 +30,12 @@ public class Controller {
         dao.createCustomer(customer);
     }
 
+    @SneakyThrows
     private void method() {
-        throw new RuntimeException();
+        Thread.sleep(60000000);
     }
 }
+//    private void method() {
+//        throw new RuntimeException();
+//    }
+//}

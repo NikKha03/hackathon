@@ -26,9 +26,9 @@ public class Dao {
 
     public void createPurchase(Purchase purchase) {
         String sql = "INSERT INTO purchase (customer_id, price) "
-                + "VALUES (:customerId, :price)";
+                + "VALUES (:customer_id, :price)";
         SqlParameterSource parameterSource = new MapSqlParameterSource("price", purchase.getPrice())
-                .addValue("customerId", purchase.getCustomerId());
+                .addValue("customer_id", purchase.getCustomer_id());
         template.update(sql, parameterSource);
     }
 
@@ -37,7 +37,7 @@ public class Dao {
                 + "set \"money\" = (SELECT c.\"money\" FROM customer c where id = :id FOR update) - :price "
                 + "where id = :id";
         SqlParameterSource parameterSource = new MapSqlParameterSource("price", purchase.getPrice())
-                .addValue("id", purchase.getCustomerId());
+                .addValue("id", purchase.getCustomer_id());
         template.update(sql, parameterSource);
     }
 }
