@@ -13,9 +13,6 @@ public class Tasks {
     private Long task_id;
 
     @Column(nullable = false)
-    private String taskTime;
-
-    @Column(nullable = false)
     private String taskTitle;
 
     @Column

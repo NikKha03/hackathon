@@ -12,10 +12,7 @@ import java.util.List;
 public class Store {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long product_id;
-
-    @Column
-    private String category;
+    private Long id;
 
     @Column
     private String nameProduct;
