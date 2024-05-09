@@ -42,7 +42,7 @@ public class AuthController {
     @PostMapping("/signup")
     ResponseEntity<?> signup(@RequestBody SignupRequest signupRequest) {
         if (userRepository.existsUserByUsername(signupRequest.getUsername())) {
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(" Пользователь с таким username уже существует");
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("Пользователь с таким username уже существует");
         }
 
         if (userRepository.existsUserByEmail(signupRequest.getEmail())) {
@@ -65,8 +65,7 @@ public class AuthController {
         wallet.setUserId(user);
         walletRepository.save(wallet);
 
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("message", "Регистрация прошла успешно!");
+        JSONObject jsonObject = new JSONObject().put("message", "Регистрация прошла успешно!");
 
         return ResponseEntity.ok(jsonObject.toString());
     }

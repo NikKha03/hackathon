@@ -49,12 +49,31 @@ public class UserController {
     ResponseEntity<?> setProfile(Principal principal, @RequestBody UserInfo userInfo) {
 
         User user = userRepository.getUserByUsername(principal.getName());
-        String name = userInfo.getName();
         Long userInfoId = user.getUserInfo().getUserInfoId();
 
-        String sql = String.format("UPDATE user_info SET name = '%s' " +
-                "WHERE user_info_id = %d", name, userInfoId);
-        template.update(sql, new MapSqlParameterSource());
+        String name = userInfo.getName();
+        if (name != null) {
+            String sqlUpdateName = String.format("UPDATE user_info SET name = '%s' " +
+                    "WHERE user_info_id = %d", name, userInfoId);
+            template.update(sqlUpdateName, new MapSqlParameterSource());
+        }
+
+        String surname = userInfo.getSurname();
+        if (surname != null) {
+            String sqlUpdateSurname = String.format("UPDATE user_info SET surname = '%s' " +
+                    "WHERE user_info_id = %d", surname, userInfoId);
+            template.update(sqlUpdateSurname, new MapSqlParameterSource());
+        }
+
+        String tg = userInfo.getTg();
+        if (tg != null) {
+            String sqlUpdateTg = String.format("UPDATE user_info SET tg = '%s' " +
+                    "WHERE user_info_id = %d", tg, userInfoId);
+            template.update(sqlUpdateTg, new MapSqlParameterSource());
+        }
+
+        // TODO
+        // LocalDate dateOfBirth = userInfo.getDateOfBirth();
 
         JSONObject jsonObject = new JSONObject().put("massage", "Данные обновлены!");
 
