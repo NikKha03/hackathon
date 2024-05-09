@@ -61,8 +61,8 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
                         .requestMatchers("hackathon/signup", "hackathon/signin").anonymous() // доступ неаутентифицированным пользователям
-                        .requestMatchers("hackathon/user/**").fullyAuthenticated()
-                        .requestMatchers("hackathon/admin/**").fullyAuthenticated()
+                        .requestMatchers("hackathon/user/**").hasRole("USER")
+                        .requestMatchers("hackathon/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll() // всем запрещает доступ
                 )
                 .addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
