@@ -1,6 +1,6 @@
 package com.example.demo.repository;
 
-import com.example.demo.models.Wallet;
+import com.example.demo.models.ForUser.Wallet;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface WalletRepository extends JpaRepository<Wallet, Long> {

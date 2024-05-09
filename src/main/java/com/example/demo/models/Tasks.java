@@ -10,20 +10,17 @@ import lombok.Data;
 public class Tasks {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long task_id;
+    private Long taskId;
 
     @Column(nullable = false)
-    private String taskTime;
-
-    @Column(nullable = false)
-    private String taskTitle;
+    private String title;
 
     @Column
-    private String taskDescription;
+    private String description;
 
     @Column(nullable = false)
-    private int taskCost;
+    private int cost;
 
     @Column(nullable = false)
-    private int taskXp;
+    private int experience;
 }

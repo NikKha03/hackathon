@@ -3,8 +3,10 @@ package com.example.demo.controllers;
 import com.example.demo.DTO.SigninRequest;
 import com.example.demo.DTO.SignupRequest;
 import com.example.demo.models.ForUser.User;
-import com.example.demo.models.Wallet;
+import com.example.demo.models.ForUser.UserInfo;
+import com.example.demo.models.ForUser.Wallet;
 import com.example.demo.repository.RoleRepository;
+import com.example.demo.repository.UserInfoRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.repository.WalletRepository;
 import com.example.demo.token.JwtCore;
@@ -30,10 +32,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
     private AuthenticationManager authenticationManager;
     private JwtCore jwtCore;
-    private UserRepository userRepository;
-    private RoleRepository roleRepository;
     private WalletRepository walletRepository;
     private PasswordEncoder passwordEncoder;
+
+    private UserRepository userRepository;
+    private UserInfoRepository userInfoRepository;
+    private RoleRepository roleRepository;
 
     @PostMapping("/signup")
     ResponseEntity<?> signup(@RequestBody SignupRequest signupRequest) {
@@ -52,8 +56,12 @@ public class AuthController {
         user.setRoles(roleRepository.getRoleByRoleName("USER"));
         userRepository.save(user);
 
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUserId(user);
+        userInfoRepository.save(userInfo);
+
         Wallet wallet = new Wallet();
-        wallet.setWalletQuantity(100);
+        wallet.setQuantity(100);
         wallet.setUserId(user);
         walletRepository.save(wallet);
 
