@@ -1,30 +1,19 @@
 package com.example.demo.models;
 
-import com.example.demo.models.ForUser.User;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Data
-@Table(name = "Customer")
 
+@Data
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long customer_id;
+    private long id;
 
-    @OneToMany(mappedBy = "customer_id")
-    private List<Perchase> customer_list;
+    private String fio;
 
-    @ManyToOne
-    @JoinColumn(name = "wallet_id")
-    private Wallet wallet_id;
-
-    @ManyToOne
-    @JoinColumn(name = "walletQuantity")
-    private Wallet walletQuantity;
-
+    private Double money;
 }
