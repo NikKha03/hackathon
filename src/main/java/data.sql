@@ -6,7 +6,7 @@ insert into roles (role_id, role_name) values ('2', 'ADMIN');
 DELETE FROM user_role WHERE user_id = 1;
 
 -- Добавление роли пользователю
-insert into user_role (role_id, user_id) values (2, 2);
+insert into user_role (role_id, user_id) values (1, 1);
 
 -- Изменение денег
 update wallet set quantity = 500 where user_id = 1;
