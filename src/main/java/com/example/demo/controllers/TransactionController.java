@@ -15,7 +15,7 @@ import java.security.Principal;
 
 @Slf4j
 @RestController
-@RequestMapping("/hackathon")
+@RequestMapping("/hackathon/user")
 @AllArgsConstructor
 public class TransactionController {
     private final TransferDAO transferDAO;

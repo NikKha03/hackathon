@@ -1,4 +1,4 @@
--- Заполнение тблицы roles
+-- Заполнение таблицы roles
 insert into roles (role_id, role_name) values ('1', 'USER');
 insert into roles (role_id, role_name) values ('2', 'ADMIN');
 
