@@ -76,7 +76,8 @@ _*на данный момент нет реализации_
 ___
 
 ### Схема БД
-// скрин пж
+[//]: # (![Image alt]&#40;https://raw.githubusercontent.com/NikKha03/hackathon/master/image/BD.png;)
+<img src="https://raw.githubusercontent.com/NikKha03/hackathon/master/image/BD.png" width="80%">
 
 
 
