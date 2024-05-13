@@ -16,19 +16,22 @@ import java.util.List;
 public class AdminController {
     UserRepository userRepository;
 
-    //TODO??
+    //TODO??: не нравится, как выводит данные
+    // просмотр всех пользователей
     @GetMapping("/all-users")
     public List<User> getAllUser() {
         return userRepository.findAll();
     }
 
-    //TODO??
+    //TODO??: не нравится, как выводит данные
+    // просмотр пользователя по email
     @GetMapping("/find-user/{email}")
     public User findUserByEmail(@PathVariable("email") String email) {
 
         return userRepository.findByEmail(email);
     }
 
+    // удаление пользователя по email
     @Transactional
     @DeleteMapping("/delete-user/{email}")
     public ResponseEntity<?> deleteUserByEmail(@PathVariable("email") String email) {

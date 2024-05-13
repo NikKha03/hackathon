@@ -39,6 +39,7 @@ public class AuthController {
     private UserInfoRepository userInfoRepository;
     private RoleRepository roleRepository;
 
+    // регистрация пользователя
     @PostMapping("/signup")
     ResponseEntity<?> signup(@RequestBody SignupRequest signupRequest) {
         if (userRepository.existsUserByUsername(signupRequest.getUsername())) {
@@ -70,6 +71,7 @@ public class AuthController {
         return ResponseEntity.ok(jsonObject.toString());
     }
 
+    // авторизация пользователя
     @PostMapping(value = "/signin", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<?> signin(@RequestBody SigninRequest signinRequest) {
         Authentication authentication = null;

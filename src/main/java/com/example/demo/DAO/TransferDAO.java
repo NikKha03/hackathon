@@ -2,7 +2,7 @@ package com.example.demo.DAO;
 
 import com.example.demo.models.ForUser.User;
 import com.example.demo.models.ForUser.Wallet;
-import com.example.demo.models.Purchase;
+import com.example.demo.models.Transfer;
 import com.example.demo.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -13,20 +13,20 @@ import java.security.Principal;
 
 @Repository
 @AllArgsConstructor
-public class DAO {
+public class TransferDAO {
     private final NamedParameterJdbcTemplate template;
     private UserRepository userRepository;
 
-    public void createPurchase(Purchase purchase, Principal principal, String email) {
+    public void createTransfer(Transfer transfer, Principal principal, String email) {
         User fromUser = userRepository.getUserByUsername(principal.getName());
         User toUser = userRepository.findByEmail(email);
 
-        String sql = String.format("INSERT INTO purchase (from_user_id, to_user_id, price) "
-                + "VALUES (%d, %d, %d)", fromUser.getUserId(), toUser.getUserId() , purchase.getPrice());
+        String sql = String.format("INSERT INTO transfer_history (from_user_id, to_user_id, price) "
+                + "VALUES (%d, %d, %d)", fromUser.getUserId(), toUser.getUserId() , transfer.getPrice());
         template.update(sql, new MapSqlParameterSource());
     }
 
-    public void writeOffMoney(Purchase purchase, Principal principal) {
+    public void writeOffMoney(Transfer purchase, Principal principal) {
         User user = userRepository.getUserByUsername(principal.getName());
         Wallet userWallet = user.getWallet();
         int operation = userWallet.getQuantity() - purchase.getPrice();
@@ -35,10 +35,10 @@ public class DAO {
         template.update(sql, new MapSqlParameterSource());
     }
 
-    public void writeOnMoney(Purchase purchase, String email) {
+    public void writeOnMoney(Transfer transfer, String email) {
         User user = userRepository.findByEmail(email);
         Wallet userWallet = user.getWallet();
-        int operation = userWallet.getQuantity() + purchase.getPrice();
+        int operation = userWallet.getQuantity() + transfer.getPrice();
 
         String sql = String.format("UPDATE wallet SET quantity = %d WHERE user_id = %d", operation, user.getUserId());
         template.update(sql, new MapSqlParameterSource());
