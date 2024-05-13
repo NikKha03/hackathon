@@ -77,7 +77,7 @@ ___
 
 ### Схема БД
 [//]: # (![Image alt]&#40;https://raw.githubusercontent.com/NikKha03/hackathon/master/image/BD.png;)
-<img src="https://raw.githubusercontent.com/NikKha03/hackathon/master/image/BD.png" width="80%">
+<img src="https://raw.githubusercontent.com/NikKha03/hackathon/master/image/BD.png" width="100%">
 
 
 
