@@ -1,16 +1,21 @@
 package com.example.demo.controllers;
 
+import com.example.demo.DAO.UserInfoDAO;
 import com.example.demo.models.ForUser.User;
 import com.example.demo.models.ForUser.UserInfo;
+import com.example.demo.models.Purchase;
+import com.example.demo.models.Transfer;
+import com.example.demo.repository.PurchaseHistory;
+import com.example.demo.repository.TransferHistory;
 import com.example.demo.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/hackathon/user")
@@ -18,7 +23,11 @@ import java.security.Principal;
 public class UserController {
     private final NamedParameterJdbcTemplate template;
     private UserRepository userRepository;
+    private UserInfoDAO userInfoDAO;
+    private TransferHistory transferHistory;
+    private PurchaseHistory purchaseHistory;
 
+    // кошелек пользователя
     @GetMapping(path = "/wallet")
     ResponseEntity<?> getWallet(Principal principal) {
 
@@ -31,6 +40,7 @@ public class UserController {
         return ResponseEntity.ok(jsonObject.toString());
     }
 
+    // дополнительные данные о пользователе
     @GetMapping(path = "/profile")
     ResponseEntity<?> getProfile(Principal principal) {
 
@@ -45,38 +55,33 @@ public class UserController {
         return ResponseEntity.ok(jsonObject.toString());
     }
 
+    // изменение дополнительных данных о пользователе
     @PostMapping(path = "/profile")
     ResponseEntity<?> setProfile(Principal principal, @RequestBody UserInfo userInfo) {
-
-        User user = userRepository.getUserByUsername(principal.getName());
-        Long userInfoId = user.getUserInfo().getUserInfoId();
-
-        String name = userInfo.getName();
-        if (name != null) {
-            String sqlUpdateName = String.format("UPDATE user_info SET name = '%s' " +
-                    "WHERE user_info_id = %d", name, userInfoId);
-            template.update(sqlUpdateName, new MapSqlParameterSource());
-        }
-
-        String surname = userInfo.getSurname();
-        if (surname != null) {
-            String sqlUpdateSurname = String.format("UPDATE user_info SET surname = '%s' " +
-                    "WHERE user_info_id = %d", surname, userInfoId);
-            template.update(sqlUpdateSurname, new MapSqlParameterSource());
-        }
-
-        String tg = userInfo.getTg();
-        if (tg != null) {
-            String sqlUpdateTg = String.format("UPDATE user_info SET tg = '%s' " +
-                    "WHERE user_info_id = %d", tg, userInfoId);
-            template.update(sqlUpdateTg, new MapSqlParameterSource());
-        }
-
-        // TODO
-        // LocalDate dateOfBirth = userInfo.getDateOfBirth();
+        userInfoDAO.setProfile(principal, userInfo);
 
         JSONObject jsonObject = new JSONObject().put("massage", "Данные обновлены!");
-
         return ResponseEntity.ok(jsonObject.toString());
+    }
+
+    // исходящие переводы
+    @GetMapping(path = "/outgoing-transfer-history")
+    public List<Transfer> outgoingTransferHistory(Principal principal) {
+        User user = userRepository.getUserByUsername(principal.getName());
+        return transferHistory.findByFromUserId(user.getUserId());
+    }
+
+    // входящие переводы
+    @GetMapping(path = "/incoming-transfer-history")
+    public List<Transfer> incomingTransferHistory(Principal principal) {
+        User user = userRepository.getUserByUsername(principal.getName());
+        return transferHistory.findByToUserId(user.getUserId());
+    }
+
+    // история покупок в магазине
+    @GetMapping(path = "/purchase-history")
+    public List<Purchase> purchaseHistory(Principal principal) {
+        User user = userRepository.getUserByUsername(principal.getName());
+        return purchaseHistory.findByUserId(user.getUserId());
     }
 }
